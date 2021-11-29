@@ -15,9 +15,11 @@ use crate::providers;
 use addresses::parse_address;
 /// formats a hex address (e.g. "0x7a512d3609211e719737E82c7bb7271eC05Da70d") in the form "etherscan:0x7a512d3609211e719737E82c7bb7271eC05Da70d"
 
+
+
 type HttpContract = Contract<Provider<Http>>;
 
-fn gen_contract(address: Address, abi: Abi, client: Provider<Http>) -> Result<HttpContract> {
+pub fn gen_contract(address: Address, abi: Abi, client: Provider<Http>) -> Result<HttpContract> {
     Ok(Contract::new(address, abi, client))
 }
 
@@ -29,6 +31,12 @@ fn build_contract_from_json_dir<P: AsRef<Path>>(
 ) -> Result<HttpContract> {
     let file_path = dir_path.as_ref().join(format!("{}.json", contract_name));
     build_contract_from_json_path(file_path, address, client)
+}
+
+pub fn parse_abi_from_json(json_str:  &str) -> Result<Abi> {
+    let v: Value = from_str(json_str)?;
+    let abi: Abi = from_str(&v["abi"].to_string())?; // EXTREMELY SKETCHY AND SLOW, PROBABLY
+    return Ok(abi);
 }
 
 fn build_contract_from_json_path<P: AsRef<Path>>(
@@ -85,10 +93,13 @@ pub enum Network {
 }
 
 impl StrategistSession {
+
+
     /**
      * This is erroring out when we actually send the transaction. Idk why, needs to be fixed
      */
-    pub async fn bootstrap<P: AsRef<Path>>(net: Network, json_dir: P) -> Result<Self> {
+    pub async fn bootstrap(net: Network) -> Result<Self> {
+        let json_dir = "abi";
         println!("Flag 1");
         // first, we get our provider
         // second, we build the bath house contract
