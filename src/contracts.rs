@@ -86,15 +86,13 @@ pub struct StrategistSession {
     bath_house: HttpContract,
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
 pub enum Network {
     Live,
     Kovan,
 }
 
 impl StrategistSession {
-
-
     /**
      * This is erroring out when we actually send the transaction. Idk why, needs to be fixed
      */
