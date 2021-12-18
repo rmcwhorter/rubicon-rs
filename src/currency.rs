@@ -17,6 +17,24 @@ pub enum Currency {
     IERC20(Address),
 }
 
+impl std::string::ToString for Currency {
+    fn to_string(&self) -> String {
+        match self {
+            Currency::WETH => "WETH".to_owned(),
+            Currency::USDC => "USDC".to_owned(),
+            Currency::USDT => "USDT".to_owned(),
+            Currency::WBTC => "WBTC".to_owned(),
+            Currency::DAI => "DAI".to_owned(),
+            Currency::RPL => "RPL".to_owned(),
+            Currency::SNX => "SNX".to_owned(),
+            Currency::UNI => "UNI".to_owned(),
+            Currency::LINK => "LINK".to_owned(),
+            Currency::OHM => "OHM".to_owned(),
+            Currency::IERC20(addr) => format!("IERC20({})", addr),
+        }
+    }
+}
+
 impl Currency {
     pub fn kovan_address(&self) -> Address {
         match &self {
