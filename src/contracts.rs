@@ -8,18 +8,18 @@ use ethers_core::{abi::Abi};
 use serde_json::{from_str, Value};
 use std::fs;
 use std::path::Path;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 use crate::addresses;
 use crate::providers;
 use addresses::parse_address;
 /// formats a hex address (e.g. "0x7a512d3609211e719737E82c7bb7271eC05Da70d") in the form "etherscan:0x7a512d3609211e719737E82c7bb7271eC05Da70d"
 
+type ProviderArc = Arc<Mutex<Provider<Http>>>;
 
+type HttpContract = Contract<ProviderArc>;
 
-type HttpContract = Contract<Provider<Http>>;
-
-pub fn gen_contract(address: Address, abi: Abi, client: Provider<Http>) -> Result<HttpContract> {
+pub fn gen_contract(address: Address, abi: Abi, client: ProviderArc) -> Result<HttpContract> {
     Ok(Contract::new(address, abi, client)) // what? this is supposedly broken
 }
 

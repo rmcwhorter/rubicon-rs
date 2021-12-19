@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 
 pub mod addresses;
+#[cfg(feature = "contracts")]
 pub mod contracts;
 pub mod providers;
 pub mod currency;

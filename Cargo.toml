@@ -12,3 +12,7 @@ reqwest = "*" # we only need this for one thing, can we pull this lib from on of
 anyhow = "1.0.44"
 serde = { version="1.0.130", features=["derive"] }
 serde_json = "1.0.68"
+
+[features]
+contracts = []
+full = ["contracts"]
