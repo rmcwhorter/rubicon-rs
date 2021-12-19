@@ -20,7 +20,7 @@ use addresses::parse_address;
 type HttpContract = Contract<Provider<Http>>;
 
 pub fn gen_contract(address: Address, abi: Abi, client: Provider<Http>) -> Result<HttpContract> {
-    Ok(Contract::new(address, abi, client))
+    Ok(Contract::new(address, abi, client)) // what? this is supposedly broken
 }
 
 fn build_contract_from_json_dir<P: AsRef<Path>>(

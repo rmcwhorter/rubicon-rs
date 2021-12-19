@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 ethers = { git = "https://github.com/gakonst/ethers-rs" }
-ethers-core = "0.6.2"
+ethers-core = "0.6.3"
 reqwest = "*" # we only need this for one thing, can we pull this lib from on of the other dependencies instead?
 anyhow = "1.0.44"
 serde = { version="1.0.130", features=["derive"] }
